@@ -23,13 +23,16 @@ module "vpc" {
 
 }
 
-
 module "ssl_certificate" {
-  source = "../../modules/ssl_certificate"
-  domain_name = var.domain_name
-  route53_zone_id = var.route53_zone_id
-  tags = local.tags
-  environment = var.environment
+  source                 = "../../modules/ssl_certificate"
+  create_new_certificate = false
+  private_key_path       = var.private_key_path
+  certificate_body_path  = var.certificate_body_path
+  certificate_chain_path = var.certificate_chain_path
+  domain_name            = var.create_new_certificate ? var.domain_name : null
+  route53_zone_id        = var.create_new_certificate ? var.route53_zone_id : null
+  tags                   = local.tags
+  environment            = var.environment
 }
 
 
@@ -59,7 +62,7 @@ module "postgres" {
   source = "../../modules/postgres"
   postgres_instance_type = var.db_instance_type
   vpc_id = module.vpc.vpc_id
-  allowed_cidrs = module.vpc.public_subnet_ids
+  allowed_cidrs = module.vpc.public_subnet_cidrs
   subnet_id = module.vpc.private_subnet_ids[0]
   postgres_ami = var.postgres_ami
   tags = local.tags

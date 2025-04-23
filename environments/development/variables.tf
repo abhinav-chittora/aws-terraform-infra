@@ -8,6 +8,25 @@ variable "aws_profile" {
   default     = "default"
 }
 
+variable "private_key_path" {
+  description = "Path to the private key for the SSL certificate"
+  default     = "path/to/private/key.pem"  # Replace with your private key path
+}
+
+variable "certificate_body_path" {
+  description = "Path to the certificate body for the SSL certificate"
+  default     = "path/to/certificate.pem"  # Replace with your certificate body path
+}
+
+variable "certificate_chain_path" {
+  description = "value to the certificate chain for the SSL certificate"
+  default     = "path/to/certificate_chain.pem"  # Replace with your certificate chain path
+}
+
+variable "create_new_certificate" {
+  description = "Flag to create a new SSL certificate"
+  default     = false
+}
 variable "domain_name" {
   description = "Domain name for the web application"
   default     = "hws-gruppe.de"  # Replace with your domain
@@ -30,12 +49,12 @@ variable "db_instance_type" {
 
 variable "web_app_ami" {
   description = "AMI ID for the web application EC2 instance"
-  default     = ""  # Example AMI ID, replace with a valid one
+  default     = "ami-0d8d11821a1c1678b"  # Example AMI ID, replace with a valid one
 }
 
 variable "postgres_ami" {
   description = "AMI ID for the PostgreSQL EC2 instance"
-  default     = ""  # Example AMI ID, replace with a valid one
+  default     = "ami-0d8d11821a1c1678b"  # Example AMI ID, replace with a valid one
 }
 
 variable "vpc_cidr" {

@@ -2,7 +2,7 @@ resource "aws_instance" "web_app" {
   ami           = var.web_app_ami
   instance_type = var.web_app_instance_type
   subnet_id     = var.subnet_id
-  security_groups = [aws_security_group.web_app_sg.name]
+  vpc_security_group_ids = [aws_security_group.web_app_sg.id]
 
   user_data = <<-EOF
               #!/bin/bash

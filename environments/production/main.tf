@@ -43,9 +43,11 @@ module "web_ec2" {
 
 module "db_ec2" {
   source = "../../modules/postgres"
-  ami = var.db_ami
-  instance_type = var.db_instance_type
-  security_group_id = aws_security_group.db_sg.id
+  postgres_ami = var.db_ami
+  postgres_instance_type = var.db_instance_type
+  vpc_id = module.vpc.vpc_id
   subnet_id = module.vpc.private_subnet_id
+  allowed_cidrs = var.allowed_cidrs
+  environment = var.environment
   tags = local.tags
 }
