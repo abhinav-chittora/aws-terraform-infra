@@ -41,6 +41,7 @@ module "web_app" {
   source = "../../modules/ec2"
   subnet_id = module.vpc.public_subnet_ids[0]
   web_app_ami = var.web_app_ami
+  vpc_id = module.vpc.vpc_id
   web_app_instance_type = var.instance_type
   tags = local.tags
   environment = var.environment

@@ -10,17 +10,17 @@ variable "aws_profile" {
 
 variable "private_key_path" {
   description = "Path to the private key for the SSL certificate"
-  default     = "path/to/private/key.pem"  # Replace with your private key path
+  default     = "../../secrets/key_nopass.pem"  # Replace with your private key path
 }
 
 variable "certificate_body_path" {
   description = "Path to the certificate body for the SSL certificate"
-  default     = "path/to/certificate.pem"  # Replace with your certificate body path
+  default     = "../../secrets/cert.pem"  # Replace with your certificate body path
 }
 
 variable "certificate_chain_path" {
   description = "value to the certificate chain for the SSL certificate"
-  default     = "path/to/certificate_chain.pem"  # Replace with your certificate chain path
+  default     = "../../secrets/cert.pem"  # Replace with your certificate chain path
 }
 
 variable "create_new_certificate" {

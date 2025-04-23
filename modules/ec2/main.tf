@@ -3,7 +3,8 @@ resource "aws_instance" "web_app" {
   instance_type = var.web_app_instance_type
   subnet_id     = var.subnet_id
   vpc_security_group_ids = [aws_security_group.web_app_sg.id]
-
+  key_name      = aws_key_pair.key_pair.key_name
+  associate_public_ip_address = true
   user_data = <<-EOF
               #!/bin/bash
               # Commands to install and configure your web application
@@ -18,9 +19,27 @@ resource "aws_instance" "web_app" {
   
 }
 
+// Create SSH key pair for EC2 instance
+resource "tls_private_key" "ssh_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "key_pair" {
+  key_name   = "${var.environment}-KeyPair"
+  public_key = tls_private_key.ssh_key.public_key_openssh
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.environment}-KeyPair"
+    }
+  )
+}
+
 resource "aws_security_group" "web_app_sg" {
   name        = "web_app_sg"
   description = "Security group for web application"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 80

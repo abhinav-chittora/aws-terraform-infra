@@ -25,7 +25,6 @@ resource "aws_acm_certificate" "imported_ssl_certificate" {
 
 # Only create validation resources if creating a new cert
 resource "aws_route53_record" "certificate_validation" {
-  count   = var.create_new_certificate ? 1 : 0
   for_each = var.create_new_certificate ? {
     for dvo in aws_acm_certificate.ssl_certificate[0].domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
@@ -33,6 +32,7 @@ resource "aws_route53_record" "certificate_validation" {
       value  = dvo.resource_record_value
     }
   } : {}
+
   zone_id = var.route53_zone_id
   name    = each.value.name
   type    = each.value.type

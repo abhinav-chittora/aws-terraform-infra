@@ -1,4 +1,4 @@
-tfplan.out
+*tfplan.out*
 */.terraform/*
 *.lock.hcl
 
@@ -12,3 +12,4 @@ tfplan.out
 *.tfplan.json
 *.tfplan.json.*
 environments/*/.terraform/
+*secrets*

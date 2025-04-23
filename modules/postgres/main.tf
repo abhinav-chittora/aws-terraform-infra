@@ -2,7 +2,7 @@ resource "aws_instance" "postgres" {
   ami           = var.postgres_ami
   instance_type = var.postgres_instance_type
   subnet_id     = var.subnet_id
-
+  key_name      = aws_key_pair.postgres_key_pair.key_name
   tags = merge(
     var.tags,
     {
@@ -10,6 +10,23 @@ resource "aws_instance" "postgres" {
     }
   )
   vpc_security_group_ids = [aws_security_group.postgres_sg.id]
+}
+
+// create ssh key pair for postgres instance
+resource "tls_private_key" "postgres_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "postgres_key_pair" {
+  key_name   = "${var.environment}-PostgresKeyPair"
+  public_key = tls_private_key.postgres_key.public_key_openssh
+  tags = merge(
+    var.tags,
+    {
+      Name = "${var.environment}-PostgresKeyPair"
+    }
+  )
 }
 
 resource "aws_security_group" "postgres_sg" {
