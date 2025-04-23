@@ -1,0 +1,14 @@
+tfplan.out
+*/.terraform/*
+*.lock.hcl
+
+.qodo
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+*.tfplan
+*.tfplan.*
+*.tfplan.json
+*.tfplan.json.*
+environments/*/.terraform/
