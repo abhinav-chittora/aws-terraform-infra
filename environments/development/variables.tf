@@ -10,17 +10,17 @@ variable "aws_profile" {
 
 variable "private_key_path" {
   description = "Path to the private key for the SSL certificate"
-  default     = "../../secrets/key_nopass.pem"  # Replace with your private key path
+  default     = "../../secrets/key_nopass.pem" # Replace with your private key path
 }
 
 variable "certificate_body_path" {
   description = "Path to the certificate body for the SSL certificate"
-  default     = "../../secrets/cert.pem"  # Replace with your certificate body path
+  default     = "../../secrets/cert.pem" # Replace with your certificate body path
 }
 
 variable "certificate_chain_path" {
   description = "value to the certificate chain for the SSL certificate"
-  default     = "../../secrets/cert.pem"  # Replace with your certificate chain path
+  default     = "../../secrets/cert.pem" # Replace with your certificate chain path
 }
 
 variable "create_new_certificate" {
@@ -29,12 +29,12 @@ variable "create_new_certificate" {
 }
 variable "domain_name" {
   description = "Domain name for the web application"
-  default     = "hws-gruppe.de"  # Replace with your domain
+  default     = "hws-gruppe.de" # Replace with your domain
 }
 
 variable "environment" {
   description = "The environment for the deployment"
-  default     = "development"  # Replace with your desired environment name
+  default     = "development" # Replace with your desired environment name
 }
 
 variable "instance_type" {
@@ -42,6 +42,10 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+variable "ssh_allowed_cidr_blocks" {
+  description = "CIDR blocks allowed to SSH into the instance"
+  default     = ["151.189.180.250/32"] # replace with your IP address
+}
 variable "db_instance_type" {
   description = "EC2 instance type for the PostgreSQL database"
   default     = "t2.micro"
@@ -49,12 +53,12 @@ variable "db_instance_type" {
 
 variable "web_app_ami" {
   description = "AMI ID for the web application EC2 instance"
-  default     = "ami-0d8d11821a1c1678b"  # Example AMI ID, replace with a valid one
+  default     = "ami-0d8d11821a1c1678b" # Example AMI ID, replace with a valid one
 }
 
 variable "postgres_ami" {
   description = "AMI ID for the PostgreSQL EC2 instance"
-  default     = "ami-0d8d11821a1c1678b"  # Example AMI ID, replace with a valid one
+  default     = "ami-0d8d11821a1c1678b" # Example AMI ID, replace with a valid one
 }
 
 variable "vpc_cidr" {
@@ -80,7 +84,7 @@ variable "public_subnet_cidrs" {
 
 variable "private_subnet_cidrs" {
   description = "CIDR block for the private subnet"
-  default     = ["10.0.3.0/24","10.0.4.0/24"]
+  default     = ["10.0.3.0/24", "10.0.4.0/24"]
 }
 
 variable "availability_zones" {
@@ -90,12 +94,12 @@ variable "availability_zones" {
 
 variable "ssl_certificate_domain" {
   description = "Domain name for the SSL certificate"
-  default     = "example.com"  # Replace with your domain
+  default     = "example.com" # Replace with your domain
 }
 
 variable "route53_zone_id" {
   description = "Route 53 hosted zone ID"
-  default     = "Z3P5QSUBK4A8V2"  # Replace with your Route 53 hosted zone ID
+  default     = "Z3P5QSUBK4A8V2" # Replace with your Route 53 hosted zone ID
 }
 
 variable "db_name" {
@@ -110,5 +114,5 @@ variable "db_user" {
 
 variable "db_password" {
   description = "Password for the PostgreSQL database"
-  default     = "dbpassword"  # Replace with a secure password
+  default     = "dbpassword" # Replace with a secure password
 }

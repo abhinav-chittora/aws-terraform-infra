@@ -27,3 +27,8 @@ variable "vpc_id" {
   description = "The VPC ID for the security group"
   type        = string
 }
+
+variable "ssh_allowed_cidr_blocks" {
+  description = "CIDR blocks allowed to SSH into the instance"
+  type        = list(string)
+}

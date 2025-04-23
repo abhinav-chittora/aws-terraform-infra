@@ -1,22 +1,22 @@
 resource "aws_instance" "web_app" {
-  ami           = var.web_app_ami
-  instance_type = var.web_app_instance_type
-  subnet_id     = var.subnet_id
-  vpc_security_group_ids = [aws_security_group.web_app_sg.id]
-  key_name      = aws_key_pair.key_pair.key_name
+  ami                         = var.web_app_ami
+  instance_type               = var.web_app_instance_type
+  subnet_id                   = var.subnet_id
+  vpc_security_group_ids      = [aws_security_group.web_app_sg.id]
+  key_name                    = aws_key_pair.key_pair.key_name
   associate_public_ip_address = true
-  user_data = <<-EOF
+  user_data                   = <<-EOF
               #!/bin/bash
               # Commands to install and configure your web application
               EOF
 
   tags = merge(
     {
-      Name        = "${var.environment}-WebAppInstance"
+      Name = "${var.environment}-WebAppInstance"
     },
     var.tags
   )
-  
+
 }
 
 // Create SSH key pair for EC2 instance
@@ -48,6 +48,12 @@ resource "aws_security_group" "web_app_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = var.ssh_allowed_cidr_blocks # Pass this variable from the module call
+  }
   ingress {
     from_port   = 443
     to_port     = 443
